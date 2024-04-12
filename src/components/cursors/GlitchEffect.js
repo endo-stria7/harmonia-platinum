@@ -74,8 +74,12 @@ export class GlitchEffect {
 
     this.cursor.style.transform = `translate3d(${this.pointerX}px, ${this.pointerY}px, 0)`;
     this.cursor.style.boxShadow = `
-      ${+this.distanceX * 2}px ${+this.distanceY * 4}px 0 ${this.glitchColorB}, 
-      ${-this.distanceX * 2}px ${-this.distanceY * 4}px 0 ${this.glitchColorR}`;
+      ${+this.distanceX * 1.3}px ${+this.distanceY * 1.5}px 0 ${
+      this.glitchColorB
+    }, 
+      ${-this.distanceX * 1.3}px ${-this.distanceY * 1.5}px 0 ${
+      this.glitchColorR
+    }`;
     this.stop();
   }
 

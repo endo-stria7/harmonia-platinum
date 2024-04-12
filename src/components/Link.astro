@@ -5,15 +5,133 @@ type Props = {
   href: string;
   external?: boolean;
   underline?: boolean;
-}
+  effects?: string[];
+  foregroundColor?: string;
+  hoverBackgroundColor?: string;
+};
 
-const { href, external, underline = true, ...rest } = Astro.props;
+const {
+  href,
+  external,
+  underline = false,
+  effects = [],
+  foregroundColor = "rgba(0,0,0,.9)",
+  hoverBackgroundColor = "#ff4f71",
+  ...rest
+} = Astro.props;
 ---
 
-<a 
-  href={href} 
-  target={ external ? "_blank" : "_self" } 
-  class={cn("inline-block decoration-black/15 dark:decoration-white/30 hover:decoration-black/25 hover:dark:decoration-white/50 text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out", underline && "underline underline-offset-2")}
-  {...rest}>
-  <slot/>
+<style
+  define:vars={{
+    textColor: foregroundColor,
+    hoverBackgroundColor,
+    // hoverBackgroundColor:dark:text-[#003262],
+    pink: "#d67ce9",
+    gray: "#474747",
+    // textColor:"dark:text-white/75"
+  }}
+>
+  .styled-link::after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    transition: all 0.15s;
+    z-index: -1;
+  }
+  /* Shutter effect */
+  .styled-link.shutter::after {
+    height: 7px;
+    background: var(--hoverBackgroundColor);
+  }
+  .styled-link.shutter:hover::after {
+    opacity: 0.75;
+    height: 100%;
+  }
+  /* Shutter half */
+  .styled-link.shutter.half::after {
+    height: 1px;
+    background: var(--hoverBackgroundColor);
+  }
+  .styled-link.shutter.half:hover {
+    color: black;
+  }
+  .styled-link.shutter.half:hover::after {
+    height: 50%;
+  }
+
+  /* Gradient */
+  /* Style 2 */
+  .styled-link.gradient.style2 {
+    background: linear-gradient(
+      145deg,
+      #ff4e50 25%,
+      #f9d423 25%,
+      #ff4e50 48%,
+      var(--textColor) 48%
+    );
+
+    background-size: 200% auto;
+    background-position: 100% 0;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    transition: all 0.75s;
+  }
+
+  .styled-link.gradient:hover {
+    background-position: 0 0;
+  }
+
+  /* Dark theme */
+
+  /* Shutter half */
+  html.dark .styled-link.shutter.half::after {
+    height: 1px;
+    background: #ba160c;
+  }
+  html.dark .styled-link.shutter.half:hover {
+    color: rgb(255 255 255 / 0.75);
+  }
+  html.dark .styled-link.shutter.half:hover::after {
+    height: 50%;
+  }
+
+  html.dark .styled-link.gradient.style2 {
+    background: linear-gradient(
+      145deg,
+      #4776e6 25%,
+      #8e54e9 25%,
+      #4776e6 48%,
+      rgb(255 255 255 / 0.75) 48%
+    );
+
+    background-size: 200% auto;
+    background-position: 100% 0;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    transition: all 0.75s;
+  }
+  html.dark .styled-link.gradient:hover {
+    background-position: 0 0;
+  }
+</style>
+<a
+  href={href}
+  target={external ? "_blank" : "_self"}
+  class={cn(
+    "relative inline-block text-current hover:text-black hover:dark:text-white transition-colors duration-300 ease-in-out",
+    underline && "underline underline-offset-2",
+    effects.length > 0 && "styled-link",
+    effects.includes("shutter") && "shutter",
+    effects.includes("half") && "half",
+    effects.includes("gradient") && "gradient",
+    effects.includes("grd-style2") && "style2"
+  )}
+  {...rest}
+>
+  <slot />
 </a>

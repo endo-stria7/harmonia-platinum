@@ -42,7 +42,9 @@ const work = await Promise.all(
       <section class="animate space-y-6">
         <div class="flex flex-wrap gap-y-2 items-center justify-between">
           <h5 class="font-semibold text-black dark:text-white">Latest posts</h5>
-          <Link href="/blog"> See all posts </Link>
+          <Link href="/blog" effects={["gradient", "grd-style2"]}>
+            See all posts
+          </Link>
         </div>
         <ul class="flex flex-col gap-4">
           {
@@ -60,7 +62,9 @@ const work = await Promise.all(
           <h5 class="font-semibold text-black dark:text-white">
             Work Experience
           </h5>
-          <Link href="/work"> See all work </Link>
+          <Link href="/work" effects={["gradient", "grd-style2"]}>
+            See all work
+          </Link>
         </div>
         <ul class="flex flex-col space-y-4">
           {
@@ -87,7 +91,9 @@ const work = await Promise.all(
           <h5 class="font-semibold text-black dark:text-white">
             Recent projects
           </h5>
-          <Link href="/projects"> See all projects </Link>
+          <Link href="/projects" effects={["gradient", "grd-style2"]}>
+            See all projects
+          </Link>
         </div>
         <ul class="flex flex-col gap-4">
           {

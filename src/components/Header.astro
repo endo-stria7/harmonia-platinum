@@ -7,27 +7,22 @@ import { SITE } from "@consts";
 <header>
   <Container>
     <div class="flex flex-wrap gap-y-2 justify-between">
-      <Link href="/" underline={false}>
+      <Link href="/">
         <div class="font-semibold">
-          {SITE.NAME}
+          <!-- {SITE.NAME} -->
+          Home
         </div>
       </Link>
       <nav class="flex gap-1">
-        <Link href="/blog">
-          blog
-        </Link>
+        <Link href="/blog" effects={["shutter", "half"]}> blog </Link>
         <span>
           {`/`}
         </span>
-        <Link href="/work">
-          work
-        </Link>
+        <Link href="/work" effects={["shutter", "half"]}> work </Link>
         <span>
           {`/`}
         </span>
-        <Link href="/projects">
-          projects
-        </Link>
+        <Link href="/projects" effects={["shutter", "half"]}> projects </Link>
       </nav>
     </div>
   </Container>
