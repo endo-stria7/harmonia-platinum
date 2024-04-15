@@ -1,0 +1,88 @@
+---
+import Container from "@components/Container.astro";
+---
+
+<Container>
+  <div class="404-container">
+    <span class="glitch">404</span>
+    <span class="offset">404</span>
+    <span>404</span>
+  </div>
+</Container>
+
+<style>
+  * {
+    font-size: 180px;
+    font-weight: bold;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  body {
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 0;
+  }
+
+  .glitch {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .glitch:before,
+  .glitch:after {
+    content: "404";
+    position: absolute;
+    left: 0;
+    z-index: -1;
+  }
+
+  .glitch:before {
+    color: #00feff;
+    clip-path: polygon(0 0%, 100% 0%, 100% 66%, 0 66%);
+    animation: slide-right 0.17s ease-in-out infinite;
+  }
+
+  .glitch:after {
+    color: #ff4f71;
+    clip-path: polygon(0 33%, 100% 33%, 100% 100%, 0 100%);
+    animation: slide-left 0.23s ease-in-out infinite;
+  }
+
+  @keyframes slide-left {
+    to {
+      transform: translateX(2px);
+    }
+  }
+
+  @keyframes slide-right {
+    to {
+      transform: translateX(-2px);
+    }
+  }
+
+  .offset {
+    transform: translateX(-2px);
+    animation: offset 2s ease-in-out infinite;
+    background: black;
+    position: absolute;
+    z-index: 2;
+    color: white;
+  }
+
+  @keyframes offset {
+    from {
+      clip-path: polygon(0 0%, 100% 0%, 100% 35%, 0 35%);
+    }
+    50% {
+      clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    }
+    to {
+      clip-path: polygon(0 0%, 100% 0%, 100% 35%, 0 35%);
+    }
+  }
+</style>
