@@ -225,14 +225,30 @@ const { title, description, image = "/nano.png" } = Astro.props;
 
 <script is:inline>
   document.addEventListener("astro:before-preparation", () => {
+    const preloaderContainer = document.createElement("div");
+    preloaderContainer.style.zIndex = "999";
+    preloaderContainer.style.position = "absolute";
+    preloaderContainer.style.display = "flex";
+    preloaderContainer.style.justifyContent = "center";
+    preloaderContainer.style.alignItems = "center";
+    preloaderContainer.style.width = "100vw";
+    preloaderContainer.style.height = "100vh";
+    preloaderContainer.style.background =
+      "linear-gradient(0deg, rgba(219, 219, 219,0.7) 0%, rgba(219, 219, 219, 0.3) 100%) 0% 0% / cover no-repeat fixed";
+    preloaderContainer.style.backgroundSize = "cover";
+    preloaderContainer.style.margin = 0;
+    preloaderContainer.style.backgroundRepeat = "no-repeat";
+    preloaderContainer.style.backgroundAttachment = "fixed";
+
     const preloader = document.createElement("div");
     preloader.setAttribute("id", "preloader");
+    preloaderContainer.appendChild(preloader);
 
     for (let i = 0; i < 8; i++) {
       let childDiv = document.createElement("div");
       preloader.appendChild(childDiv);
     }
-    document.body.appendChild(preloader);
+    document.body.appendChild(preloaderContainer);
 
     // Create the style element
     const preloaderStyle = document.createElement("style");
@@ -241,8 +257,11 @@ const { title, description, image = "/nano.png" } = Astro.props;
     preloaderStyle.innerHTML = `#preloader, #preloader div, #preloader div:after {box-sizing: border-box;}#preloader {display: inline-block;position: relative;width: 80px;height: 80px;}#preloader div {animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;transform-origin: 40px 40px;}#preloader div:after {content: " ";display: block;position: absolute;width: 7.2px;height: 7.2px;border-radius: 50%;background: currentColor;margin: -3.6px 0 0 -3.6px;}#preloader div:nth-child(1) {animation-delay: -0.036s;}#preloader div:nth-child(1):after {top: 62.62742px;left: 62.62742px;}#preloader div:nth-child(2) {animation-delay: -0.072s;}#preloader div:nth-child(2):after {top: 67.71281px;left: 56px;}#preloader div:nth-child(3) {animation-delay: -0.108s;}#preloader div:nth-child(3):after {top: 70.90963px;left: 48.28221px;}#preloader div:nth-child(4) {animation-delay: -0.144s;}#preloader div:nth-child(4):after {top: 72px;left: 40px;}#preloader div:nth-child(5) {animation-delay: -0.18s;}#preloader div:nth-child(5):after {top: 70.90963px;left: 31.71779px;}#preloader div:nth-child(6) {animation-delay: -0.216s;}#preloader div:nth-child(6):after {top: 67.71281px;left: 24px;}#preloader div:nth-child(7) {animation-delay: -0.252s;}#preloader div:nth-child(7):after {top: 62.62742px;left: 17.37258px;}#preloader div:nth-child(8) {animation-delay: -0.288s;}#preloader div:nth-child(8):after {top: 56px;left: 12.28719px;}@keyframes lds-roller {0% {transform: rotate(0deg);}100% {transform: rotate(360deg);}}`;
     document.head.appendChild(preloaderStyle);
   });
+
   document.addEventListener("astro:after-preparation", () => {
     document.getElementById("preloader").setAttribute("hidden");
-    document.removeChild(document.getElementById("preloader-style"));
+    document.removeChild(
+      document.getElementById("preloader-style").parentElement
+    );
   });
 </script>
